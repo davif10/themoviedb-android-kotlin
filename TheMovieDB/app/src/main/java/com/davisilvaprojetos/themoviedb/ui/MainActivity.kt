@@ -40,10 +40,8 @@ class MainActivity : AppCompatActivity() {
         })
 
         viewModel.networkState.observe(this, Observer {
-            //progressBar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
-            if (it == NetworkState.ERROR){
-                Toast.makeText(this,"Erro",Toast.LENGTH_SHORT).show()
-            }
+            progressBar.visibility = if (it == NetworkState.LOADING) View.VISIBLE else View.GONE
+            textError.visibility = if (it == NetworkState.ERROR) View.VISIBLE else View.GONE
 
         })
 
