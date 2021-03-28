@@ -7,7 +7,7 @@
 
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageSimilarMoviesItem"
         android:layout_width="70dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
@@ -25,11 +25,11 @@
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/imageSimilarMoviesItem"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textSimilarMoviesTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Titulo"
@@ -43,14 +43,14 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textSimilarMoviesYear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2021"
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textSimilarMoviesGenre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -80,7 +80,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/imageView">
+        app:layout_constraintTop_toBottomOf="@+id/imageSimilarMoviesItem">
 
         <include layout="@layout/divider" />
     </LinearLayout>

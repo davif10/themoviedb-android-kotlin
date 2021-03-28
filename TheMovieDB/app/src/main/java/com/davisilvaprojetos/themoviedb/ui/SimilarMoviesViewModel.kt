@@ -3,21 +3,19 @@ package com.davisilvaprojetos.themoviedb.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.davisilvaprojetos.themoviedb.data.repository.NetworkState
-import com.davisilvaprojetos.themoviedb.data.vo.MovieDetails
+import com.davisilvaprojetos.themoviedb.data.vo.SimilarMovies
 import io.reactivex.disposables.CompositeDisposable
 
-class MovieViewModel(private val movieDetailsRepository: MovieDetailsRepository, movieId: Int) : ViewModel(){
-
+class SimilarMoviesViewModel(private val similarMoviesRepository: SimilarMoviesRepository, movieId:Int) : ViewModel(){
     private val compositeDisposable = CompositeDisposable()
 
-    val movieDetails: LiveData<MovieDetails> by lazy{
-        movieDetailsRepository.fetchSingleMovieDetails(compositeDisposable, movieId)
+    val similarMovies: LiveData<SimilarMovies> by lazy{
+        similarMoviesRepository.fetchSimilarMovies(compositeDisposable, movieId)
     }
 
     val networkState: LiveData<NetworkState> by lazy{
-        movieDetailsRepository.getMovieDetailsNetworkState()
+        similarMoviesRepository.getSimilarMoviesNetworkState()
     }
-
 
     override fun onCleared() {
         super.onCleared()

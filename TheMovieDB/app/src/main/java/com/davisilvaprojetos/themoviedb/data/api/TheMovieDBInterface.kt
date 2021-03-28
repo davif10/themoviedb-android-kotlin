@@ -5,6 +5,7 @@ import com.davisilvaprojetos.themoviedb.data.vo.SimilarMovies
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface TheMovieDBInterface {
 
