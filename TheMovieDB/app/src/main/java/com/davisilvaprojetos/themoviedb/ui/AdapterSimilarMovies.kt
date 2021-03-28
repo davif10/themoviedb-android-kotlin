@@ -7,9 +7,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.davisilvaprojetos.themoviedb.R
+import com.davisilvaprojetos.themoviedb.data.api.POSTER_BASE_URL
 import com.davisilvaprojetos.themoviedb.data.vo.Movies
 import com.davisilvaprojetos.themoviedb.data.vo.SimilarMovies
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.movie_list_item.view.*
 
 class AdapterSimilarMovies(private val listMovies: List<Movies>, private val context: Context) : RecyclerView.Adapter<AdapterSimilarMovies.MovieViewHolder>() {
@@ -22,11 +25,30 @@ class AdapterSimilarMovies(private val listMovies: List<Movies>, private val con
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         val movies = listMovies.get(position)
         holder.titleMovie.text = movies.title
-        holder.yearMovie.text = movies.releaseDate
-        holder.genreMovie.text = movies.genreIds.toString()
+        //val listGenre: MutableList<String> = ArrayList()
+        var genreDisplay = ""
 
-        println("TAMANHO DA LISTA: "+listMovies.size)
-        println("MOVIES 1 : "+movies)
+        for (i in movies.genreIds.indices) {
+            val genre = genres(movies.genreIds.get(i))
+            if(i == movies.genreIds.indices.last){
+                genreDisplay += genre
+            }else{
+                genreDisplay += genre+", "
+            }
+            //listGenre.add(genre)
+        }
+        holder.genreMovie.text = genreDisplay
+        holder.yearMovie.text = movies.releaseDate
+
+
+        val moviePosterURL = POSTER_BASE_URL + movies.posterPath
+        Glide.with(context)
+                .load(moviePosterURL)
+                .into(holder.imageMovie)
+
+        //println("TAMANHO DA LISTA: " + listGenre.size)
+        println("GENEROS ID : " + movies.genreIds)
+        println("GENEROS NOMES : " + genreDisplay)
     }
 
     override fun getItemCount(): Int {
@@ -46,6 +68,36 @@ class AdapterSimilarMovies(private val listMovies: List<Movies>, private val con
             genreMovie = itemView.textSimilarMoviesGenre
 
         }
+    }
+
+    fun genres(id: Int): String {
+        val name: String
+
+        when (id) {
+            12 -> name = "Adventure"
+            14 -> name = "Fantasy"
+            16 -> name = "Animation"
+            18 -> name = "Drama"
+            27 -> name = "Horror"
+            28 -> name = "Action"
+            35 -> name = "Comedy"
+            36 -> name = "History"
+            37 -> name = "Western"
+            53 -> name = "Thriller"
+            80 -> name = "Crime"
+            99 -> name = "Documentary"
+            878 -> name = "Science Fiction"
+            9648 -> name = "Mystery"
+            10402 -> name = "Music"
+            10749 -> name = "Romance"
+            10751 -> name = "Family"
+            10752 -> name = "War"
+            10770 -> name = "TV Movie"
+
+            else -> name = ""
+        }
+
+        return name
     }
 
 }
