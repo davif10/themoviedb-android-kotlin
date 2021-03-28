@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
         movieSimilarMoviesRepository = SimilarMoviesRepository(apiService)
 
 
-
         viewModel = getViewModel(movieId)
         viewModel.movieDetails.observe(this, Observer {
             bindUI(it)
@@ -63,16 +62,12 @@ class MainActivity : AppCompatActivity() {
         viewModelSimilarMovies.similarMovies.observe(this, Observer {
             listSimilarMovies.add(it)
             listMovies = it.results
-
             val adapterSimilarMovies = AdapterSimilarMovies(listMovies, this)
             recyclerSimilarMovies.setHasFixedSize(true)
             recyclerSimilarMovies.layoutManager = LinearLayoutManager(this)
             recyclerSimilarMovies.adapter = adapterSimilarMovies
-          /*
-            println("PAGE: " + it.page)
-            println("PAGE: " + it.totalPages)
-            println("PAGE: " + it.results)
-            println("LISTA: " + listMovies)*/
+
+
         })
 
         viewModelSimilarMovies.networkState.observe(this, Observer {

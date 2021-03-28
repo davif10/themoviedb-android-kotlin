@@ -14,6 +14,11 @@ import com.davisilvaprojetos.themoviedb.data.vo.Movies
 import com.davisilvaprojetos.themoviedb.data.vo.SimilarMovies
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.movie_list_item.view.*
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class AdapterSimilarMovies(private val listMovies: List<Movies>, private val context: Context) : RecyclerView.Adapter<AdapterSimilarMovies.MovieViewHolder>() {
 
@@ -23,32 +28,39 @@ class AdapterSimilarMovies(private val listMovies: List<Movies>, private val con
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+        //Config Title
         val movies = listMovies.get(position)
         holder.titleMovie.text = movies.title
-        //val listGenre: MutableList<String> = ArrayList()
+
+        //Config Genres
         var genreDisplay = ""
 
         for (i in movies.genreIds.indices) {
             val genre = genres(movies.genreIds.get(i))
-            if(i == movies.genreIds.indices.last){
+            if (i == movies.genreIds.indices.last) {
                 genreDisplay += genre
-            }else{
-                genreDisplay += genre+", "
+            } else {
+                genreDisplay += genre + ", "
             }
-            //listGenre.add(genre)
         }
         holder.genreMovie.text = genreDisplay
-        holder.yearMovie.text = movies.releaseDate
 
+        //Config Year
+        val date: String
+        if(movies.releaseDate == null || movies.releaseDate.equals("")){
+            date = "ND"
+        }else{
+            date = movies.releaseDate.subSequence(0, 4).toString()
+        }
 
+        holder.yearMovie.text = date
+
+        //Config Image
         val moviePosterURL = POSTER_BASE_URL + movies.posterPath
         Glide.with(context)
                 .load(moviePosterURL)
                 .into(holder.imageMovie)
 
-        //println("TAMANHO DA LISTA: " + listGenre.size)
-        println("GENEROS ID : " + movies.genreIds)
-        println("GENEROS NOMES : " + genreDisplay)
     }
 
     override fun getItemCount(): Int {
